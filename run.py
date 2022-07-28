@@ -11,16 +11,19 @@ CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 
-
 def get_sales_data():
     """
     Get sales figure from the user
     """
-    print("Enter the sales data (6 numbers) separated by commas, like 10,20,30,40,50,60 etc\n")
-    data_str=input("Enter your data here")
-    sales_data=data_str.split(",")
-    validate_data(sales_data)
-
+    while True:
+        print("Enter the sales data (6 numbers) separated by commas, like 10,20,30,40,50,60 etc\n")
+        data_str=input("Enter your data here")
+        sales_data=data_str.split(",")
+        
+        if validate_data(sales_data):
+            print("Data is valid")
+            break
+    return sales_data
 def validate_data(values):
     """
     Validating the entered data
@@ -33,5 +36,7 @@ def validate_data(values):
             )
     except ValueError as e:
             print(f"Invalid data,{e}, please try again.\n")
-
-get_sales_data()
+            return False
+    return True
+data=get_sales_data()
+print(data)
