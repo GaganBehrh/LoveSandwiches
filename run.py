@@ -38,5 +38,9 @@ def validate_data(values):
             print(f"Invalid data,{e}, please try again.\n")
             return False
     return True
+def update_sales_worksheet(data):
+    """Update the sales worksheet, add new row to the worksheet"""
+    print("updating sales data.....\n")
 data=get_sales_data()
-print(data)
+sales_data=[int(num) for num in data]
+update_sales_worksheet(sales_data)
